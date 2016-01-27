@@ -5,13 +5,22 @@ import (
 
 	"flag"
 
-	"github.com/dgageot/docker-machine-proxy/machine"
+	"path/filepath"
+
+	mcn "github.com/dgageot/docker-machine-proxy/machine"
 	"github.com/dgageot/docker-machine-proxy/proxy"
+	"github.com/docker/machine/commands/mcndirs"
+	"github.com/docker/machine/libmachine"
 )
 
 func main() {
-	url := flag.String("url", "tcp:192.168.99.100:2376", "Url of the Docker Machine")
-	certPath := flag.String("certPath", "/Users/dgageot/.docker/machine/machines/default", "Location of the certificates")
+	if err := run(); err != nil {
+		panic(err)
+	}
+}
+
+func run() error {
+	machineName := flag.String("machine", "default", "Docker machine name")
 	addr := flag.String("addr", "localhost:2375", "Address of the proxy")
 	help := flag.Bool("help", false, "Show help")
 
@@ -19,13 +28,26 @@ func main() {
 
 	if *help {
 		flag.Usage()
-		return
+		return nil
 	}
 
-	http.ListenAndServe(*addr, &proxy.DockerMachineProxy{
-		Machine: &machine.DockerMachine{
-			Url:      *url,
-			CertPath: *certPath,
+	api := libmachine.NewClient(mcndirs.GetBaseDir(), mcndirs.GetMachineCertDir())
+	defer api.Close()
+
+	machine, err := api.Load(*machineName)
+	if err != nil {
+		return err
+	}
+
+	url, err := machine.URL()
+	if err != nil {
+		return err
+	}
+
+	return http.ListenAndServe(*addr, &proxy.DockerMachineProxy{
+		Machine: &mcn.DockerMachine{
+			Url:      url,
+			CertPath: filepath.Join(mcndirs.GetBaseDir(), "machines", *machineName),
 		},
 	})
 }

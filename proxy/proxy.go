@@ -24,7 +24,7 @@ func (dmp *DockerMachineProxy) ServeHTTP(w http.ResponseWriter, r *http.Request)
 }
 
 func proxyHttp(dm *machine.DockerMachine, writer http.ResponseWriter, r *http.Request) error {
-	req, err := http.NewRequest(r.Method, fmt.Sprintf("tcp://%s%s", dm.Url, r.URL), r.Body)
+	req, err := http.NewRequest(r.Method, fmt.Sprintf("%s%s", dm.Url, r.URL), r.Body)
 	if err != nil {
 		return err
 	}
@@ -35,7 +35,7 @@ func proxyHttp(dm *machine.DockerMachine, writer http.ResponseWriter, r *http.Re
 		return err
 	}
 
-	underlying, err := tls.Dial("tcp", dm.Url[4:], tlsConfig)
+	underlying, err := tls.Dial("tcp", dm.Url[6:], tlsConfig)
 	if err != nil {
 		return err
 	}

@@ -1,5 +1,48 @@
 {
 	"ImportPath": "github.com/dgageot/docker-machine-proxy",
 	"GoVersion": "go1.5",
-	"Deps": []
+	"Deps": [
+		{
+			"ImportPath": "github.com/docker/docker/pkg/term",
+			"Comment": "v1.4.1-8889-gdb738dd",
+			"Rev": "db738dd77f699e93f976441d5fc11ab48a2d6c68"
+		},
+		{
+			"ImportPath": "github.com/docker/go-units",
+			"Comment": "v0.1.0-21-g0bbddae",
+			"Rev": "0bbddae09c5a5419a8c6dcdd7ff90da3d450393b"
+		},
+		{
+			"ImportPath": "github.com/docker/machine/commands/mcndirs",
+			"Comment": "v0.6.0-rc1-89-g36aed62",
+			"Rev": "36aed62f39f28b90694f163f3c227a390b5b989c"
+		},
+		{
+			"ImportPath": "github.com/docker/machine/drivers/errdriver",
+			"Comment": "v0.6.0-rc1-89-g36aed62",
+			"Rev": "36aed62f39f28b90694f163f3c227a390b5b989c"
+		},
+		{
+			"ImportPath": "github.com/docker/machine/drivers/none",
+			"Comment": "v0.6.0-rc1-89-g36aed62",
+			"Rev": "36aed62f39f28b90694f163f3c227a390b5b989c"
+		},
+		{
+			"ImportPath": "github.com/docker/machine/libmachine",
+			"Comment": "v0.6.0-rc1-89-g36aed62",
+			"Rev": "36aed62f39f28b90694f163f3c227a390b5b989c"
+		},
+		{
+			"ImportPath": "github.com/samalba/dockerclient",
+			"Rev": "f661dd4754aa5c52da85d04b5871ee0e11f4b59c"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/curve25519",
+			"Rev": "beef0f4390813b96e8e68fd78570396d0f4751fc"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/ssh",
+			"Rev": "beef0f4390813b96e8e68fd78570396d0f4751fc"
+		}
+	]
 }

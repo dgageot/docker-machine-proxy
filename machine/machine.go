@@ -5,6 +5,7 @@ import (
 	"crypto/x509"
 	"errors"
 	"io/ioutil"
+	"path/filepath"
 )
 
 type DockerMachine struct {
@@ -13,17 +14,17 @@ type DockerMachine struct {
 }
 
 func (dm *DockerMachine) ReadTLSConfig() (*tls.Config, error) {
-	caCert, err := ioutil.ReadFile(dm.CertPath + "/ca.pem")
+	caCert, err := ioutil.ReadFile(filepath.Join(dm.CertPath, "ca.pem"))
 	if err != nil {
 		return nil, err
 	}
 
-	serverCert, err := ioutil.ReadFile(dm.CertPath + "/server.pem")
+	serverCert, err := ioutil.ReadFile(filepath.Join(dm.CertPath, "server.pem"))
 	if err != nil {
 		return nil, err
 	}
 
-	serverKey, err := ioutil.ReadFile(dm.CertPath + "/server-key.pem")
+	serverKey, err := ioutil.ReadFile(filepath.Join(dm.CertPath, "server-key.pem"))
 	if err != nil {
 		return nil, err
 	}
