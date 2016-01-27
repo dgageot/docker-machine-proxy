@@ -10,7 +10,7 @@ run: build
 build: $(BIN)
 
 $(BIN): main.go machine/*.go proxy/*.go
-	go build .
+	GOOS=windows GOARG=amd64 go build -ldflags "-extldflags -static" .
 
 deps:
 	godep save
